@@ -1,1 +1,3 @@
 # SmartRecyclerView
+
+作者在公司的项目最近需要引入recycleview,但是在实际使用中，recycleview并没有像Listview那样便捷的addheaderview,addfooterview,setemptyview,以及我们项目中经常会使用到的下拉刷新，和加载更多。所以这个库也是为了提供一个功能更加健全和强大的recycleview
