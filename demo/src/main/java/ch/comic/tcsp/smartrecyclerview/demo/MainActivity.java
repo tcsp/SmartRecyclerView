@@ -1,14 +1,17 @@
 package ch.comic.tcsp.smartrecyclerview.demo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,15 +19,9 @@ import ch.comic.tcsp.smartrecyclerview.SmartRecycleView;
 import ch.comic.tcsp.smartrecyclerview.UltraPtrRecycleView;
 import ch.comic.tcsp.smartrecyclerview.demo.adapter.CustomAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private boolean mCanLoadMore = true;
-
-    private UltraPtrRecycleView pullToRefreshRecyclerView;
-    private SmartRecycleView mRecycleView;
-    private CustomAdapter mAdapter;
-
-    private TextView tvEmpty;
+    private Button btnLinear, btnGrid, btnStagger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,76 +31,33 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initView();
-
-        onRefresh();
     }
 
     private void initView() {
-        pullToRefreshRecyclerView = (UltraPtrRecycleView) findViewById(R.id.wrv_list);
-        mRecycleView = pullToRefreshRecyclerView.getRefreshableView();
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        mRecycleView.setLayoutManager(gridLayoutManager);
-        mAdapter = new CustomAdapter(this);
-        mRecycleView.setAdapter(mAdapter);
+        btnLinear = (Button) findViewById(R.id.btn_linear);
+        btnGrid = (Button) findViewById(R.id.btn_grid);
+        btnStagger = (Button) findViewById(R.id.btn_staggered);
 
-        tvEmpty = (TextView) findViewById(R.id.tv_empty);
-        mRecycleView.setEmptyView(tvEmpty);
-
-        //添加第一个header
-        View header1 = new View(this);
-        header1.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-        LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 30);
-        header1.setLayoutParams(layoutParams1);
-        mRecycleView.addHeaderView(header1);
-
-        pullToRefreshRecyclerView.setOnRefreshListener(new UltraPtrRecycleView.OnRefreshListener() {
-            @Override
-            public void onRefresh(SmartRecycleView recycleView) {
-                MainActivity.this.onRefresh();
-            }
-        });
-        mRecycleView.setOnLoadMoreHelper(new SmartRecycleView.OnLoadMoreHelper() {
-            @Override
-            public boolean canLoadMore() {
-                return mCanLoadMore;
-            }
-
-            @Override
-            public void onLoadMore() {
-                onMore();
-            }
-        });
+        btnLinear.setOnClickListener(this);
+        btnGrid.setOnClickListener(this);
+        btnStagger.setOnClickListener(this);
     }
 
-    //下拉刷新
-    private void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-
-                mAdapter.clear();
-                for (int i = 0; i < 15; i++) {
-                    mAdapter.append("item" + i);
-                }
-                mAdapter.notifyDataSetChanged();
-                pullToRefreshRecyclerView.onRefreshComplete();
-            }
-
-        }, 1000);
-    }
-
-    //加载更多
-    private void onMore() {
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-
-                for (int i = 0; i < 15; i++) {
-                    mAdapter.append("item" + i);
-                }
-                mAdapter.notifyDataSetChanged();
-                mRecycleView.onLoadMoreCompleted();
-            }
-
-        }, 1000);
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        switch (v.getId()) {
+            case R.id.btn_linear:
+                intent.setClass(this, LinearLayoutActivity.class);
+                break;
+            case R.id.btn_grid:
+                intent.setClass(this, GridLayoutActivity.class);
+                break;
+            case R.id.btn_staggered:
+                intent.setClass(this, StaggeredGridActivity.class);
+                break;
+        }
+        startActivity(intent);
     }
 
     @Override

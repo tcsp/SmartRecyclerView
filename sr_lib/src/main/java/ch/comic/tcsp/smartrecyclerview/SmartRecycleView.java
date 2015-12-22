@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class SmartRecycleView extends RecyclerView {
 
     private Adapter mAdapter;
-    private Adapter mWrapAdapter;
+    private SmartRecycleAdapter mWrapAdapter;
     private ArrayList<View> mHeaderViews = new ArrayList<>();
     private ArrayList<View> mFooterViews = new ArrayList<>();
 
@@ -315,6 +316,8 @@ public class SmartRecycleView extends RecyclerView {
             if (mLoadingMoreView == null) {
                 mLoadingMoreView = LayoutInflater.from(getContext()).inflate(R.layout.loading_view, null);
             }
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            mLoadingMoreView.setLayoutParams(layoutParams);
         } else {
             if (mOnLoadMoreHelper != null) {
                 mLoadingMoreView = mOnLoadMoreHelper.createCustomManualLoadingFooter();
@@ -322,6 +325,8 @@ public class SmartRecycleView extends RecyclerView {
             if (mLoadingMoreView == null) {
                 mLoadingMoreView = LayoutInflater.from(getContext()).inflate(R.layout.manual_loading_view, null);
             }
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            mLoadingMoreView.setLayoutParams(layoutParams);
 
             mLoadingMoreView.setOnClickListener(new View.OnClickListener() {
                 @Override

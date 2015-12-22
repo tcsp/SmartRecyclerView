@@ -35,6 +35,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomHold
 
     @Override
     public void onBindViewHolder(CustomAdapter.CustomHolder holder, int position) {
+        holder.itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         String message = mData.get(position);
         holder.tvMain.setText(message);
     }

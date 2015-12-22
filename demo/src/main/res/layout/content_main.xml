@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main" tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
 
-    <ch.comic.tcsp.smartrecyclerview.UltraPtrRecycleView
-        android:id="@+id/wrv_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/btn_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LinearLayoutManager" />
 
-    <TextView
-        android:id="@+id/tv_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</RelativeLayout>
+    <Button
+        android:id="@+id/btn_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GridLayoutManager" />
+
+    <Button
+        android:id="@+id/btn_staggered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="StaggeredLayoutManager" />
+</LinearLayout>
